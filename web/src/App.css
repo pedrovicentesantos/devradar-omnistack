@@ -1,0 +1,36 @@
+#app{
+  /* Para centralizar se a tela for muito grande */
+  max-width: 1200px;
+  margin: 0 auto;
+  /* top, bottom: 60px; left, right: 30px */
+  padding: 60px 30px;
+
+  /* Para deixar tudo um do lado do outro e em linhas */
+  display: flex;
+  flex-direction: row;
+  
+  /* Alinhar a sidebar e o main pelo topo. Caso contrário, iam tentar ocupar a tela toda */
+  align-items: flex-start;
+}
+
+#app main{
+  margin-left: 30px;
+}
+
+/* Para tornar responsivo */
+/* Quando chegar em 1000px de largura */
+@media (max-width: 1000px){
+  #app{
+    /* Para deixar os items um embaixo do outro */
+    flex-direction: column;
+  }
+
+  #app main{
+    margin-left: 0;
+    margin-top: 30px;
+  }
+
+  #app aside {
+    width: 100%;
+  }
+}

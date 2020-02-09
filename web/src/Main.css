@@ -1,0 +1,22 @@
+main{
+  /* Para o main ocupar todo o espaço disponível dele */
+  flex: 1;
+}
+
+main ul{
+  display: grid;
+  /* Repetir por 2 colunas o 1fr */
+  grid-template-columns: repeat(2, 1fr);
+  /* Espaço das colunas e linhas. Dá pra setar apenas o espaço das colunas OU das linhas */
+  gap: 20px;
+  /* Tirar as bolinhas que aparecem com a lista */
+  list-style: none;
+}
+
+/* Para tornar responsivo */
+/* Quando a largura for menor que 650px */
+@media (max-width:650px){
+  main ul{
+    grid-template-columns: 1fr;
+  }
+}
