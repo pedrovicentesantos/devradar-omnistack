@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 // Para permitir acessar de outros endereços
@@ -16,7 +18,7 @@ const server = http.Server(app);
 // A função é disparada assim que a aplicação é inicializada
 setupWebSocket(server);
 
-mongoose.connect('mongodb+srv://pedro:ZBrbnv8ZTIEQiuUp@cluster0-b01ut.mongodb.net/omnistack?retryWrites=true&w=majority',{
+mongoose.connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0-b01ut.mongodb.net/omnistack?retryWrites=true&w=majority`,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true

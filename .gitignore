@@ -1,5 +1,2 @@
-backend/node_modules
-backend/config.txt
-mobile/node_modules
-web/node_modules
-web/README.md
+node_modules/
+.env

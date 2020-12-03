@@ -5,7 +5,12 @@ li.dev-item{
   padding: 20px;
 }
 
-li.dev-item header{
+li.dev-item header {
+  display: flex;
+  justify-content: space-between;
+}
+
+li.dev-item header > div{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -31,6 +36,10 @@ li.dev-item header .user-info{
   font-size: 13px;
   color: #999;
   margin-top: 2px;
+}
+
+.delete-button {
+  cursor: pointer;
 }
 
 li.dev-item p{

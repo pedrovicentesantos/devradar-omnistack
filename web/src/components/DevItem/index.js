@@ -1,22 +1,31 @@
 import React from 'react';
 
+import { XCircle } from 'react-feather';
+
 import './style.css';
 
 function DevItem(props){
   // Para pegar o dev que foi passado como propriedade pelo componente Pai
   const {dev} = props;
 
+  function handleDelete () {
+    console.log("Clique");
+  }
+
   return (
     <li className="dev-item">
       <header>
-        <img src={dev.avatar_url} alt={dev.name}/>
-        <div className="user-info">
-          <strong>{dev.name}</strong>
-          <span>{dev.techs.join(", ")}</span>                
+        <div>
+          <img src={dev.avatar_url} alt={dev.name}/>
+          <div className="user-info">
+            <strong>{dev.name}</strong>
+            <span>{dev.techs.join(", ")}</span>                
+          </div>
         </div>
+        <XCircle className="delete-button" onClick={handleDelete} color="red"/>
       </header>
       <p>{dev.bio}</p>
-      <a href={`https://github.com/${dev.github_username}`}>Acessar perfil no Github</a>
+      <a href={`https://github.com/${dev.github_username}`} rel="noopener noreferrer" target="_blank">Acessar perfil no Github</a>
     </li>
   )
 }
