@@ -14,17 +14,19 @@ function DevItem(props){
 
   return (
     <li className="dev-item">
-      <header>
-        <div>
-          <img src={dev.avatar_url} alt={dev.name}/>
-          <div className="user-info">
-            <strong>{dev.name}</strong>
-            <span>{dev.techs.join(", ")}</span>                
+      <div>
+        <header>
+          <div className="header">
+            <img src={dev.avatar_url} alt={dev.name}/>
+            <div className="user-info">
+              <strong>{dev.name}</strong>
+              <span>{dev.techs.join(", ")}</span>                
+            </div>
           </div>
-        </div>
-        <XCircle className="delete-button" onClick={handleDelete} color="red"/>
-      </header>
-      <p>{dev.bio}</p>
+          <XCircle className="delete-button" onClick={handleDelete} color="red"/>
+        </header>
+        <p>{dev.bio}</p>
+      </div>
       <a href={`https://github.com/${dev.github_username}`} rel="noopener noreferrer" target="_blank">Acessar perfil no Github</a>
     </li>
   )
