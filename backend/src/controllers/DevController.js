@@ -1,4 +1,5 @@
 const axios = require('axios');
+const mongoose = require('mongoose');
 const Dev = require('../models/Dev');
 const parseStringAsArray = require('../utils/parseStringAsArray');
 
@@ -12,6 +13,10 @@ module.exports = {
     return response.json(devs);
   },
 
+  // Não insere duplicados, pois inserir Dev como mesmo username do GitHub 
+  // leva a _id duplicado no MongoDB
+  // TODO:
+  // - Checar se o username já estava no DB
   async store(request,response) {
     const {github_username, techs, latitude, longitude} = request.body;
 
@@ -70,6 +75,18 @@ module.exports = {
 
   // Deletar as infos de um único Dev de dentro do BD
   async destroy(request,response){
+    const { id } = request.params;
+    const valid = mongoose.Types.ObjectId.isValid(id);
+    if (!valid) {
+      return response.status(400).json({ error: "Invalid ID" });
+    }
 
+    const dev = await Dev.findByIdAndDelete(id);
+
+    if (!dev) {
+      return response.status(404).json({ error: "Dev not found" });
+    }
+
+    return response.status(203).json("Dev deleted");
   }
 };
