@@ -6,16 +6,26 @@ const parseStringAsArray = require('../utils/parseStringAsArray');
 const {findConnections, sendMessage} = require('../websocket');
 
 module.exports = {
-  // Usar o asycn significa que a função pode demorar para responder
+  // Usar o async significa que a função pode demorar para responder
   async index(request,response) {
     const devs = await Dev.find();
 
     return response.json(devs);
   },
 
-  // Não insere duplicados, pois inserir Dev como mesmo username do GitHub 
-  // leva a _id duplicado no MongoDB
-  // TODO:
+  async show(request, response) {
+    const { id } = request.params;
+    const valid = mongoose.Types.ObjectId.isValid(id);
+    if (!valid) {
+      return response.status(400).json({ error: "Invalid ID" });
+    }
+    const dev = await Dev.findById(id);
+    if (!dev) {
+      return response.status(404).json({ error: "Dev not found" });
+    }
+    return response.json(dev);
+  },
+
   async store(request,response) {
     const {github_username, techs, latitude, longitude} = request.body;
 

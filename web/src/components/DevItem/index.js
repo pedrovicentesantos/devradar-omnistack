@@ -9,7 +9,8 @@ function DevItem(props){
   const {dev} = props;
 
   function handleDelete () {
-    console.log("Clique");
+    const id = dev._id;
+    console.log(id);
   }
 
   return (
