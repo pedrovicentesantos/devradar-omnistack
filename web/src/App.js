@@ -6,7 +6,7 @@ import './App.css';
 import './Sidebar.css';
 import './Main.css'
 
-// Não preciso colocar o index no final, pois por defaul sempre pega o index.js na pasta
+// Não preciso colocar o index no final, pois por default sempre pega o index.js na pasta
 import DevItem from './components/DevItem';
 import DevForm from './components/DevForm';
 
@@ -15,6 +15,7 @@ import DevForm from './components/DevForm';
 function App(){
   // Estado para armazenar os Devs recebidos da API
   const [devs, setDevs] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Para pegar os Devs da API e fazer isso apenas uma vez
   useEffect(()=>{
@@ -28,21 +29,24 @@ function App(){
   }, []);
 
   async function handleAddDev(data){
-    // POST pois estou cadastrando um Dev novo
-    const response = await api.post('/devs', data )
-
-    // Preciso adicionar o Dev novo na página
-    // Se fizer isso: setDevs(response.data) sobrescreve o arrays devs todo e tira os Devs já listados
-    // Copia o array devs todo e adiciona o novo Dev no final
-    setDevs([...devs, response.data]);
-    // Se fosse fazer uma remoção, usaria o .filter; uma alteração usaria o .map
+    try {
+      // POST pois estou cadastrando um Dev novo
+      const response = await api.post('/devs', data );
+      // Preciso adicionar o Dev novo na página
+      // Se fizer isso: setDevs(response.data) sobrescreve o arrays devs todo e tira os Devs já listados
+      // Copia o array devs todo e adiciona o novo Dev no final
+      setDevs([...devs, response.data]);
+      setErrorMessage("");
+    } catch (error) {
+      setErrorMessage("Dev already exists");
+    }
   }
 
   return (
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <DevForm onSubmit={handleAddDev}/>
+        <DevForm errorMessage={errorMessage} onSubmit={handleAddDev}/>
       </aside>
 
       <main>

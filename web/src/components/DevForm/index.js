@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
+import "./style.css";
+
 // {onSubmit}: forma mais direta de extrair a propriedade onSubmit
-function DevForm({onSubmit}){
+function DevForm({onSubmit, errorMessage}){
   const [github_username, setGithubUsername] = useState('');
   const [techs, setTechs] = useState('');
   const [latitude, setLatitude] = useState('');
@@ -96,6 +98,10 @@ function DevForm({onSubmit}){
       </div>
 
       <button type="submit">Salvar</button>
+
+      <div className="error">
+        <p>{errorMessage}</p>
+      </div>
     </form>
   );
 }

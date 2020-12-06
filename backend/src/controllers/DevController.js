@@ -16,7 +16,6 @@ module.exports = {
   // Não insere duplicados, pois inserir Dev como mesmo username do GitHub 
   // leva a _id duplicado no MongoDB
   // TODO:
-  // - Checar se o username já estava no DB
   async store(request,response) {
     const {github_username, techs, latitude, longitude} = request.body;
 
@@ -63,8 +62,10 @@ module.exports = {
       
       // O tipo de mensagem pode ser qualquer nome, neste caso foi escolhido 'new-dev'
       sendMessage(sendSocketMessageTo, 'new-dev', dev);
+
+      return response.json(dev);
     }
-    return response.json(dev);
+    return response.status(400).json({ error: "Dev already exists" });
   },
 
   // Atualizar as infos de um único Dev
