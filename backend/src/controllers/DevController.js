@@ -90,7 +90,22 @@ module.exports = {
   // Atualizar as infos de um único Dev
   // Atualizar apenas: nome, avatar_url, bio, techs e location
   async update(request,response){
+    const { id } = request.params;
+    const valid = mongoose.Types.ObjectId.isValid(id);
+    if (!valid) {
+      return response.status(400).json({ error: "Invalid ID" });
+    }
 
+    const {techs} = request.body;
+
+    const techsArray = parseStringAsArray(techs);
+
+    const dev = await Dev.findByIdAndUpdate(id, {techs:techsArray});
+
+    if (!dev) {
+      return response.status(404).json({ error: "Dev not found" });
+    }
+    return response.json(dev);
   },
 
   // Deletar as infos de um único Dev de dentro do BD
