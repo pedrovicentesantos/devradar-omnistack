@@ -37,8 +37,13 @@ function App(){
       // Copia o array devs todo e adiciona o novo Dev no final
       setDevs([...devs, response.data]);
       setErrorMessage("");
-    } catch (error) {
-      setErrorMessage("Dev already exists");
+    } catch (err) {
+      const status = err.response.status;
+      if (status === 400) {
+        setErrorMessage("Dev already exists");
+      } else if (status === 404) {  
+        setErrorMessage("Dev not GitHub");
+      }
     }
   }
 
@@ -49,7 +54,6 @@ function App(){
         const username = response.data.github_username;
         setDevs(devs.filter(dev => dev.github_username !== username));
       }
-      // updateList(list.filter(item => item.name !== name));
     } catch (error) {
       console.log(error);
     }
