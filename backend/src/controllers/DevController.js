@@ -98,6 +98,6 @@ module.exports = {
       return response.status(404).json({ error: "Dev not found" });
     }
 
-    return response.status(203).json("Dev deleted");
+    return response.status(203).json(dev);
   }
 };

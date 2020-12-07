@@ -6,11 +6,16 @@ import './style.css';
 
 function DevItem(props){
   // Para pegar o dev que foi passado como propriedade pelo componente Pai
-  const {dev} = props;
+  const {dev, onDelete} = props;
 
-  function handleDelete () {
+  async function handleDelete () {
     const id = dev._id;
-    console.log(id);
+
+    try {
+      await onDelete(id);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

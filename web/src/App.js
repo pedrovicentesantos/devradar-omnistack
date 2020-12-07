@@ -42,6 +42,19 @@ function App(){
     }
   }
 
+  async function handleDeleteDev(id) {
+    try {
+      const response = await api.delete(`/devs/${id}`)
+      if (response.status === 203) {
+        const username = response.data.github_username;
+        setDevs(devs.filter(dev => dev.github_username !== username));
+      }
+      // updateList(list.filter(item => item.name !== name));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div id="app">
       <aside>
@@ -55,7 +68,7 @@ function App(){
             // Usa-se o atributo key para evitar o erro no console com o uso da função .map
             // Para isso passa uma propriedade única para o atributo key
             // Preciso passar uma propriedade chamada dev para funcionar
-            <DevItem key={dev._id} dev={dev}/>
+            <DevItem onDelete={handleDeleteDev} key={dev._id} dev={dev}/>
           ))}
         </ul>
       </main>
