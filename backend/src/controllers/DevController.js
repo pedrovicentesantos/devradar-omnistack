@@ -88,7 +88,7 @@ module.exports = {
   },
 
   // Atualizar as infos de um único Dev
-  // Atualizar apenas: nome, avatar_url, bio, techs e location
+  // Atualizar apenas: nome e techs
   async update(request,response){
     const { id } = request.params;
     const valid = mongoose.Types.ObjectId.isValid(id);
@@ -100,7 +100,7 @@ module.exports = {
 
     const techsArray = parseStringAsArray(techs);
 
-    const dev = await Dev.findByIdAndUpdate(id, {techs:techsArray});
+    const dev = await Dev.findByIdAndUpdate(id, {techs:techsArray}, {new:true});
 
     if (!dev) {
       return response.status(404).json({ error: "Dev not found" });

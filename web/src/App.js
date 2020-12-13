@@ -59,6 +59,23 @@ function App(){
     }
   }
 
+  async function handleUpdateTechs(id, techs) {
+    try {
+      const response = await api.patch(`/devs/${id}`,  {techs} );
+      const updated = devs.map(dev => {
+        if (dev._id === response.data._id) {
+          dev.techs = response.data.techs;
+        }
+        return dev;
+      });
+      setDevs(updated);
+      // console.log(updated);
+      // if (response.data) return response.data.techs;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div id="app">
       <aside>
@@ -72,7 +89,7 @@ function App(){
             // Usa-se o atributo key para evitar o erro no console com o uso da função .map
             // Para isso passa uma propriedade única para o atributo key
             // Preciso passar uma propriedade chamada dev para funcionar
-            <DevItem onDelete={handleDeleteDev} key={dev._id} dev={dev}/>
+            <DevItem onUpdate={handleUpdateTechs} onDelete={handleDeleteDev} key={dev._id} dev={dev}/>
           ))}
         </ul>
       </main>
