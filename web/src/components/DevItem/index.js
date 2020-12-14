@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import EasyEdit from 'react-easy-edit';
 
-import { XCircle, Check, X } from 'react-feather';
+import { XCircle, Check } from 'react-feather';
 
 import Editable from '../Editable';
 
@@ -9,7 +9,7 @@ import './style.css';
 
 function DevItem(props){
   // Para pegar o dev que foi passado como propriedade pelo componente Pai
-  const {dev, onDelete, onUpdate, onUpdateName} = props;
+  const {dev, onDelete, onUpdateDev} = props;
   // console.log(dev.techs)
   // const t = dev.techs.filter(tech => tech);
   // console.log(t)
@@ -34,18 +34,28 @@ function DevItem(props){
     // console.log(newTechs)
     const id = dev._id;
     try {
-      await onUpdate(id, newTechs);
+      await onUpdateDev(id, newTechs);
     
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function save(value) {
+  async function editDevName(value) {
     const name = value;
     const id = dev._id;
     try {
-      await onUpdateName(id, name, techs)
+      await onUpdateDev(id, name, techs)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function editDevTechs(value) {
+    const techs = value;
+    const id = dev._id;
+    try {
+      await onUpdateDev(id, dev.name, techs)
     } catch (error) {
       console.log(error);
     }
@@ -62,14 +72,22 @@ function DevItem(props){
               <div className="dev-name">
                 <EasyEdit 
                   type = "text"
-                  onSave = {save}
+                  onSave = {editDevName}
                   saveButtonLabel= {<Check size={18} color="green" />}
-                  cancelButtonLabel= {<X size={18} color="red" />}
                   value = {dev.name}
+                  hideCancelButton = {true}
                 />
               </div>
-              
-              <Editable
+              <div className="dev-techs">
+                <EasyEdit 
+                  type = "text"
+                  onSave = {editDevTechs}
+                  saveButtonLabel= {<Check size={18} color="green" />}
+                  value = {techs}
+                  hideCancelButton = {true}
+                />
+              </div>
+              {/* <Editable
                 text={techs}
                 childRef={techsRef}
                 type="input"
@@ -81,7 +99,7 @@ function DevItem(props){
                   value={techs}
                   onChange={handleEdit}
                 />
-              </Editable>
+              </Editable> */}
               {/* <span onClick={handleEdit}>{dev.techs.join(", ")}</span>                 */}
             </div>
           </div>
