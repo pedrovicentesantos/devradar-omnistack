@@ -21,7 +21,8 @@ setupWebSocket(server);
 mongoose.connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0-b01ut.mongodb.net/omnistack?retryWrites=true&w=majority`,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 })
 
 // Libera o acesso externo para todo tipo de aplicação
