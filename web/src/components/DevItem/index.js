@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
+import EasyEdit from 'react-easy-edit';
 
-import { XCircle } from 'react-feather';
+import { XCircle, Check, X } from 'react-feather';
 
 import Editable from '../Editable';
 
@@ -8,8 +9,8 @@ import './style.css';
 
 function DevItem(props){
   // Para pegar o dev que foi passado como propriedade pelo componente Pai
-  const {dev, onDelete, onUpdate} = props;
-  console.log(dev.techs)
+  const {dev, onDelete, onUpdate, onUpdateName} = props;
+  // console.log(dev.techs)
   // const t = dev.techs.filter(tech => tech);
   // console.log(t)
   const techs = dev.techs.join(", ");
@@ -30,11 +31,21 @@ function DevItem(props){
   // Comunicar com rota de patch da api para atualizar no BD
   async function handleEdit(e) {
     const newTechs = e.target.value;
-    console.log(newTechs)
+    // console.log(newTechs)
     const id = dev._id;
     try {
       await onUpdate(id, newTechs);
     
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function save(value) {
+    const name = value;
+    const id = dev._id;
+    try {
+      await onUpdateName(id, name, techs)
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +58,17 @@ function DevItem(props){
           <div className="header">
             <img src={dev.avatar_url} alt={dev.name}/>
             <div className="user-info">
-              <strong>{dev.name}</strong>
+              {/* <strong>{dev.name}</strong> */}
+              <div className="dev-name">
+                <EasyEdit 
+                  type = "text"
+                  onSave = {save}
+                  saveButtonLabel= {<Check size={18} color="green" />}
+                  cancelButtonLabel= {<X size={18} color="red" />}
+                  value = {dev.name}
+                />
+              </div>
+              
               <Editable
                 text={techs}
                 childRef={techsRef}

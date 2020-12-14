@@ -29,9 +29,10 @@ li.dev-item header .user-info{
   margin-left: 10px;
 }
 
-.user-info strong{
+.dev-name > .easy-edit-wrapper{
   display: block;
   font-size: 16px;
+  font-weight: bold;
   color: #333;
 }
 
@@ -60,4 +61,9 @@ li.dev-item a{
 
 li.dev-item a:hover{
   color: #5A2EA6;
+}
+
+.easy-edit-button {
+  background: none;
+  cursor: pointer;
 }
