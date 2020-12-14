@@ -24,8 +24,9 @@ function DevItem(props){
   async function editDevName(value) {
     const name = value;
     const id = dev._id;
+    const bio = dev.bio;
     try {
-      await onUpdateDev(id, name, techs)
+      await onUpdateDev(id, name, techs, bio);
     } catch (error) {
       console.log(error);
     }
@@ -34,8 +35,19 @@ function DevItem(props){
   async function editDevTechs(value) {
     const techs = value;
     const id = dev._id;
+    const bio = dev.bio;
     try {
-      await onUpdateDev(id, dev.name, techs)
+      await onUpdateDev(id, dev.name, techs, bio);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function editDevBio(value) {
+    const bio = value;
+    const id = dev._id;
+    try {
+      await onUpdateDev(id, dev.name, techs, bio);
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +63,7 @@ function DevItem(props){
               <div className="dev-name">
                 <EasyEdit 
                   type = "text"
-                  placeholder = "Nome do Dev"
+                  placeholder = "Insira o nome do Dev"
                   onSave = {editDevName}
                   saveButtonLabel= {<Check size={18} color="green" />}
                   value = {dev.name}
@@ -61,7 +73,7 @@ function DevItem(props){
               <div className="dev-techs">
                 <EasyEdit 
                   type = "text"
-                  placeholder = "Techs do Dev"
+                  placeholder = "Insira as techs do Dev"
                   onSave = {editDevTechs}
                   saveButtonLabel= {<Check size={18} color="green" />}
                   value = {techs}
@@ -72,7 +84,17 @@ function DevItem(props){
           </div>
           <XCircle className="delete-button" onClick={handleDelete} color="red"/>
         </header>
-        <p>{dev.bio}</p>
+        <div className="dev-bio">
+          <EasyEdit 
+            type="textarea"
+            placeholder = "Insira a bio do Dev"
+            onSave = {editDevBio}
+            saveButtonLabel= {<Check size={18} color="green" />}
+            value = {dev.bio}
+            hideCancelButton = {true}
+          />
+        </div>
+        {/* <p>{dev.bio}</p> */}
       </div>
       <a href={`https://github.com/${dev.github_username}`} rel="noopener noreferrer" target="_blank">Acessar perfil no Github</a>
     </li>

@@ -59,13 +59,14 @@ function App(){
     }
   }
 
-  async function handleUpdateDev(id, name, techs) {
+  async function handleUpdateDev(id, name, techs, bio) {
     try {
-      const response = await api.patch(`/devs/${id}`,  {techs, name} );
+      const response = await api.patch(`/devs/${id}`,  {techs, name, bio} );
       const updated = devs.map(dev => {
         if (dev._id === response.data._id) {
           dev.techs = response.data.techs;
           dev.name = response.data.name;
+          dev.bio = response.data.bio;
           
         }
         return dev;

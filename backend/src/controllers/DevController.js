@@ -96,11 +96,11 @@ module.exports = {
       return response.status(400).json({ error: "Invalid ID" });
     }
 
-    const {techs, name} = request.body;
+    const {techs, name, bio} = request.body;
 
     const techsArray = parseStringAsArray(techs);
 
-    const dev = await Dev.findByIdAndUpdate(id, {techs:techsArray, name}, {new:true});
+    const dev = await Dev.findByIdAndUpdate(id, {techs:techsArray, name, bio}, {new:true});
 
     if (!dev) {
       return response.status(404).json({ error: "Dev not found" });

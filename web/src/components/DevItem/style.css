@@ -46,7 +46,7 @@ li.dev-item header .user-info{
   cursor: pointer;
 }
 
-li.dev-item p{
+.dev-bio > .easy-edit-wrapper {
   color: #666;
   font-size: 14px;
   line-height: 20px;
