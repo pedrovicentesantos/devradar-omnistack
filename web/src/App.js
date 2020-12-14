@@ -59,23 +59,6 @@ function App(){
     }
   }
 
-  async function handleUpdateTechs(id, techs) {
-    try {
-      const response = await api.patch(`/devs/${id}`,  {techs} );
-      const updated = devs.map(dev => {
-        if (dev._id === response.data._id) {
-          dev.techs = response.data.techs;
-        }
-        return dev;
-      });
-      setDevs(updated);
-      // console.log(updated);
-      // if (response.data) return response.data.techs;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async function handleUpdateDev(id, name, techs) {
     try {
       const response = await api.patch(`/devs/${id}`,  {techs, name} );
@@ -88,8 +71,6 @@ function App(){
         return dev;
       });
       setDevs(updated);
-      // console.log(updated);
-      // if (response.data) return response.data.techs;
     } catch (error) {
       console.log(error);
     }
