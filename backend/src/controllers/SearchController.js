@@ -5,16 +5,20 @@ module.exports = {
   async index(request,response){
     // Buscar todos os devs num raio de 10km
     // Filtrar por tecnologias
-    const {latitude, longitude, techs} = request.query;
+    const {latitude, longitude, techs, exactMatch} = request.query;
 
     techsArray = parseStringAsArray(techs);
 
     let devs = [];
     for(tech of techsArray) {
-      // Busca exata
-      // const expression = new RegExp(`^${tech}$`, 'i');
-      // Busca por um pedaço da string
-      const expression = new RegExp(`${tech}`, 'i');
+      let expression = "";
+      
+      if (exactMatch === 'true') {
+        expression = new RegExp(`^${tech}$`, 'i');
+      } else if (exactMatch === 'false') {
+        expression = new RegExp(`${tech}`, 'i');
+      }
+
       const devsResult = await Dev.find({
         techs: {
           $regex: expression

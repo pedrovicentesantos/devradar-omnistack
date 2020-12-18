@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 // Se eu importasse um 'Button' ele teria um estilo default para iOS e Android
 // Como vamos criar nosso próprio botão, faz mais sentido usar o 'TouchableOpacity'
 import {StyleSheet, Image, View, Text, TextInput, TouchableOpacity} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 // Marker: para realizar marcações dentro do mapa
 import MapView, {Marker, Callout} from 'react-native-maps';
 // Pedir permissões ao usuário e pegar a localização do usuário
@@ -17,6 +18,7 @@ function Main({navigation}) {
   const [devs, setDevs] = useState([]);
   const [currentRegion, setCurrentRegion] = useState(null);
   const [techs, setTechs] = useState('');
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   useEffect(() => {
     async function loadInitialPosition(){
@@ -66,7 +68,7 @@ function Main({navigation}) {
   }
   
   async function loadDevs() {
-    
+    const exactMatch = toggleCheckBox;
     const {latitude,longitude} = currentRegion;
 
     const response = await api.get('/search',{
@@ -74,6 +76,7 @@ function Main({navigation}) {
         latitude,
         longitude,
         techs,
+        exactMatch
       }
     });
   
@@ -150,6 +153,16 @@ function Main({navigation}) {
         <TouchableOpacity onPress={loadDevs} style={styles.loadButton}>
           <MaterialIcons name="my-location" size={20} color="#FFF" />
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.checkboxContainer}>
+        <Text style={styles.checkboxLabel}>Busca Exata:</Text>
+        <CheckBox
+          style={styles.checkbox}
+          // disabled={false}
+          value={toggleCheckBox}
+          onValueChange={(newValue) => setToggleCheckBox(newValue)}
+        />
       </View>
     </>
   );
@@ -228,6 +241,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 15,
   },
+
+  checkboxContainer: {
+    position: "absolute",
+    // Para ficar em baixo
+    // bottom: 20,
+    // Para ficar em cima
+    top: 80,
+    left: 260,
+    // right: 10,
+    zIndex: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 10
+  },
+
+  checkboxLabel: {
+    
+    paddingHorizontal: 5,
+    paddingVertical: 5 ,
+    fontSize: 14,
+    fontWeight: "bold"
+  }
 })
 
 export default Main;
