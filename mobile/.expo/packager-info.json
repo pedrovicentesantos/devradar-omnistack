@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 2112,
-  "expoServerNgrokUrl": "https://7c-zkw.anonymous.mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.7c-zkw.anonymous.mobile.exp.direct",
-  "ngrokPid": 2032
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }
