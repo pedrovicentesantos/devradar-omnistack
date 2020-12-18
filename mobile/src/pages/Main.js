@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 // Se eu importasse um 'Button' ele teria um estilo default para iOS e Android
 // Como vamos criar nosso próprio botão, faz mais sentido usar o 'TouchableOpacity'
-import {StyleSheet, Image, View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, Image, View, Text, TextInput, TouchableOpacity,
+        Platform, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView
+} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 // Marker: para realizar marcações dentro do mapa
 import MapView, {Marker, Callout} from 'react-native-maps';
@@ -102,7 +104,13 @@ function Main({navigation}) {
 
   // Tudo que coloco dentro do Callout é oq aparece quando clico na imagem do avatar
   return( 
-    <>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : ""}
+      style={styles.container}
+    >
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+    <View style={styles.container}>
       <MapView 
         onRegionChangeComplete={handleRegionChanged} 
         initialRegion={currentRegion} 
@@ -164,11 +172,17 @@ function Main({navigation}) {
           onValueChange={(newValue) => setToggleCheckBox(newValue)}
         />
       </View>
-    </>
+    </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+
   map: {
     flex:1,
   },
@@ -203,9 +217,9 @@ const styles = StyleSheet.create({
   searchForm:{
     position: "absolute",
     // Para ficar em baixo
-    // bottom: 20,
+    bottom: 20,
     // Para ficar em cima
-    top:20,
+    // top:20,
     left: 20,
     right: 20,
     zIndex: 5,
