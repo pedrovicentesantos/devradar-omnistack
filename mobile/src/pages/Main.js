@@ -261,8 +261,8 @@ const styles = StyleSheet.create({
     // Para ficar em baixo
     // bottom: 20,
     // Para ficar em cima
-    top: 80,
-    left: 260,
+    top: 20,
+    left: 20,
     // right: 10,
     zIndex: 5,
     flexDirection: "row",
