@@ -21,6 +21,7 @@ function Main({navigation}) {
   const [currentRegion, setCurrentRegion] = useState(null);
   const [techs, setTechs] = useState('');
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [searchRadius, setSearchRadius] = useState(10);
 
   useEffect(() => {
     async function loadInitialPosition(){
@@ -78,7 +79,8 @@ function Main({navigation}) {
         latitude,
         longitude,
         techs,
-        exactMatch
+        exactMatch,
+        radius: searchRadius
       }
     });
   
@@ -116,6 +118,9 @@ function Main({navigation}) {
         initialRegion={currentRegion} 
         style={styles.map}
       >
+        <Marker coordinate={currentRegion}>
+          <MaterialIcons name="location-on" size={30} color="#8E4DFF" />
+        </Marker>
         {devs.map(dev => (
           <Marker 
             key={dev._id}
@@ -167,9 +172,15 @@ function Main({navigation}) {
         <Text style={styles.checkboxLabel}>Busca Exata:</Text>
         <Checkbox
           style={styles.checkbox}
-          // disabled={false}
           value={toggleCheckBox}
           onValueChange={(newValue) => setToggleCheckBox(newValue)}
+        />
+      </View>
+      <View style={styles.searchRadiusContainer}>
+        <Text style={styles.searchRadiusLabel}>Raio (km):</Text>
+        <TextInput
+          value={searchRadius.toString()}
+          onChangeText={text => setSearchRadius(text)}
         />
       </View>
     </View>
@@ -272,9 +283,26 @@ const styles = StyleSheet.create({
   },
 
   checkboxLabel: {
-    
     paddingHorizontal: 5,
     paddingVertical: 5 ,
+    fontSize: 14,
+    fontWeight: "bold"
+  },
+  
+  searchRadiusContainer: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 10,
+    paddingHorizontal: 5
+  },
+  
+  searchRadiusLabel: {
+    marginRight: 2,
     fontSize: 14,
     fontWeight: "bold"
   }
