@@ -32,6 +32,7 @@ Feito isto, basta rodar o seguinte comando em cada uma das subpastas para inicia
 
 ```
 npm start
+npm run dev // Para o backend
 ```
 
 Depois deste comando, a aplicação já estará funcionando e é possível acessá-la pelo servidor local:
@@ -46,9 +47,9 @@ Para acessar o aplicativo mobile, é necessário ter o Expo instalado em um celu
 
 ## Funcionamento
 
-A aplicação Web serve para cadastrar os usuários no Banco de Dados. Após o cadastrado ser realizado, é possível pesquisar por desenvolvedores que trabalham com certa tecnologia, levando em consideração um raio de 10km. A API fica responsável por cadastrar e listar os desenvolvedores e enviar os dados para os dois frontends (o site e o app mobile).
+A aplicação Web serve para cadastrar os usuários no Banco de Dados. Após o cadastrado ser realizado, é possível pesquisar por desenvolvedores que trabalham com certa tecnologia, levando em consideração um raio de 10km por default, mas permitindo que o usuário escolha o valor. A API fica responsável por cadastrar e listar os desenvolvedores e enviar os dados para os dois frontends (o site e o app mobile).
 
-Além disso, a aplicação analisa em tempo real o cadastro de novos desenvolvedores e exibe no mapa do aplicativo mobile o novo desenvolvedor, caso ele se encaixe nos filtros (ter a tecnologia pesquisada e estar num raio de 10km).
+Além disso, a aplicação analisa em tempo real o cadastro de novos desenvolvedores e exibe no mapa do aplicativo mobile o novo desenvolvedor, caso ele se encaixe nos filtros (ter a tecnologia pesquisada e estar num raio desejado).
 
 ## Funcionalidades
 
