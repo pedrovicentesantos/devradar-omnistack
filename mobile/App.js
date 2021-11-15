@@ -1,10 +1,10 @@
 import React from 'react';
 // Aqui altero a status bar para todas as páginas, mas poderia fazer individualmente
-import {StatusBar, YellowBox} from 'react-native';
+import {StatusBar, LogBox} from 'react-native';
 
 import Routes from './src/routes';
 
-YellowBox.ignoreWarnings([
+LogBox.ignoreLogs([
   // Só é necessário passar o início da mensagem para ela ser ignorada
   'Unrecognized WebSocket'
 ]);

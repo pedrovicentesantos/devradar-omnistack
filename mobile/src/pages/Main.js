@@ -4,11 +4,11 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Image, View, Text, TextInput, TouchableOpacity,
         Platform, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView
 } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import Checkbox from 'expo-checkbox';
 // Marker: para realizar marcações dentro do mapa
 import MapView, {Marker, Callout} from 'react-native-maps';
 // Pedir permissões ao usuário e pegar a localização do usuário
-import {requestPermissionsAsync, getCurrentPositionAsync} from 'expo-location';
+import {requestForegroundPermissionsAsync, getCurrentPositionAsync} from 'expo-location';
 
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -24,7 +24,7 @@ function Main({navigation}) {
 
   useEffect(() => {
     async function loadInitialPosition(){
-      const {granted} = await requestPermissionsAsync();
+      const {granted} = await requestForegroundPermissionsAsync();
 
       if (granted) {
         const {coords} = await getCurrentPositionAsync({
@@ -47,7 +47,7 @@ function Main({navigation}) {
     loadInitialPosition();
   }, []);
 
-  // Monitara a variável devs e chama a função subscribeToNewDevs quando ela muda de valor
+  // Monitora a variável devs e chama a função subscribeToNewDevs quando ela muda de valor
   useEffect(() => {
     // Recebe os dados enviados do back-end (o dev) e deve setar o valor da variável devs
     subscribeToNewDevs(dev => setDevs([...devs,dev]));
@@ -165,7 +165,7 @@ function Main({navigation}) {
 
       <View style={styles.checkboxContainer}>
         <Text style={styles.checkboxLabel}>Busca Exata:</Text>
-        <CheckBox
+        <Checkbox
           style={styles.checkbox}
           // disabled={false}
           value={toggleCheckBox}
